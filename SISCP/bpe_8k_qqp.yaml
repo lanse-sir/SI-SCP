@@ -1,0 +1,65 @@
+model_configs:
+  # input file .
+  src: ../super-quora/bpe-8k/train/train_src.txt.bpe
+  ref_parse: ../super-quora/bpe-8k/train/train_tgt_parse.dict
+  ref: ../super-quora/bpe-8k/train/train_tgt.txt.bpe
+  dev_src: ../super-quora/bpe-8k/dev/src.txt.bpe
+  dev_parse: ../super-quora/bpe-8k/dev/ref_parse.dict
+  dev_ref: ../super-quora/bpe-8k/dev/ref.txt.bpe
+  vocab: ../super-quora/bpe-8k/resource/train.word_vocab
+  parser_vocab: ../super-quora/bpe-8k/resource/train.parse_vocab
+  pos_vocab: ../super-quora/bpe-8k/resource/train.parse_vocab
+  parent_child: ../paranmt-50w/parent_child.pkl
+  pretrain_emb: ../../data/glove.42B.300d.txt
+  # pretrain_emb: ../../data/pretrain-emb/GoogleNews-vectors-negative300.txt
+  # training setup
+  seed: 1
+  gpu: 0
+  ht: 4
+  sibling: true
+  hie_type: add #level embedding + index embedding
+  node_noise: false
+  node_drop: 0.0
+  label_smoothing: 0.25
+  noise: false
+  word_drop: 0.3
+  shuffle: 3
+  bpe: true
+  tree_gru: true
+  remove_pos: false
+  batch_size: 128
+  lr: 2.0
+  lr_decay: 0.9
+  dec_ratio: 3.2
+  max_seq_len: 500
+  sent_max_time_step: &smts 150
+  parse_max_time_step: &tmts 200
+  cuda: true
+  clip: 5.0
+  eval_bs: 64
+  greedy: true
+  linear_warmup: false
+  warm_step: 12000
+  epoch: 60
+  patience: 25
+  dropout: 0.1
+  pe: false
+  scale: true
+  # transformer parameter
+  embed_size: 256
+  tree_embed_size: 256
+  num_layers: &vnl 4
+  enc_num_layers: *vnl
+  dec_num_layers: *vnl
+  parse_td_enc_layers: 3
+  parse_lr_enc_layers: 2
+  parse_pe: false
+  d_model: 256
+  dk: 64
+  dv: 64
+  head: 4 
+  d_inner_hid: 1024
+  # multi task.
+  mul_sem: 5.0
+  mul_attn: 1.0
+  report: ~
