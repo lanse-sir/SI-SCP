@@ -1,13 +1,13 @@
 model_configs:
   # input file .
-  src: ../paranmt-50w/bpe-15k/train/double_train_src_30.bpe
-  ref_parse: ../paranmt-50w/bpe-15k/train/double_train_tgt_parse_dict_30.bpe
-  ref: ../paranmt-50w/bpe-15k/train/double_train_tgt_30.bpe
-  dev_src: ../paranmt-50w/bpe-15k/dev/dev_src.bpe
-  dev_parse: ../paranmt-50w/bpe-15k/dev/dev_tgt_parse_dict.bpe
-  dev_ref: ../paranmt-50w/bpe-15k/dev/dev_tgt.bpe
-  vocab: ../paranmt-50w/bpe-15k/resource/train.word_vocab
-  parser_vocab: ../paranmt-50w/bpe-15k/resource/train.parse_vocab
+  src: ../scp_data/paranmt/train/double_train_src_30.bpe
+  ref_parse: ../scp_data/paranmt/train/double_train_tgt_parse_dict_30.bpe
+  ref: ../scp_data/paranmt/train/double_train_tgt_30.bpe
+  dev_src: ../scp_data/paranmt/dev/dev_src.bpe
+  dev_parse: ../scp_data/paranmt/dev/dev_tgt_parse_dict.bpe
+  dev_ref: ../scp_data/paranmt/dev/dev_tgt.bpe
+  vocab: ../scp_data/paranmt/resource/train.word_vocab
+  parser_vocab: ../scp_data/paranmt/resource/train.parse_vocab
   # pos_vocab: ../paranmt-50w/bpe-15k/resource/train.pos_vocab
   # parent_child: ../paranmt-50w/parent_child.pkl
   # pretrain_emb: ../../data/glove.42B.300d.txt

@@ -1,19 +1,19 @@
 model_configs:
   # input file .
-  src: ../super-quora/bpe-8k/train/train_src.txt.bpe
-  ref_parse: ../super-quora/bpe-8k/train/train_tgt_parse.dict
-  ref: ../super-quora/bpe-8k/train/train_tgt.txt.bpe
-  dev_src: ../super-quora/bpe-8k/dev/src.txt.bpe
-  dev_parse: ../super-quora/bpe-8k/dev/ref_parse.dict
-  dev_ref: ../super-quora/bpe-8k/dev/ref.txt.bpe
-  vocab: ../super-quora/bpe-8k/resource/train.word_vocab
-  parser_vocab: ../super-quora/bpe-8k/resource/train.parse_vocab
-  pos_vocab: ../super-quora/bpe-8k/resource/train.parse_vocab
-  parent_child: ../paranmt-50w/parent_child.pkl
-  pretrain_emb: ../../data/glove.42B.300d.txt
+  src: ../scp_data/quaro/train/train_src.txt.bpe
+  ref_parse: ../scp_data/quaro/train/train_tgt_parse.dict
+  ref: ../scp_data/quaro/train_tgt.txt.bpe
+  dev_src: ../scp_data/quaro/dev/src.txt.bpe
+  dev_parse: ../scp_data/quaro/dev/ref_parse.dict
+  dev_ref: ../scp_data/quaro/dev/ref.txt.bpe
+  vocab: ../scp_data/quaro/resource/train.word_vocab
+  parser_vocab: ../scp_data/quaro/resource/train.parse_vocab
+  # pos_vocab: ../super-quora/bpe-8k/resource/train.parse_vocab
+  # parent_child: ../paranmt-50w/parent_child.pkl
+  # pretrain_emb: ../../data/glove.42B.300d.txt
   # pretrain_emb: ../../data/pretrain-emb/GoogleNews-vectors-negative300.txt
   # training setup
-  seed: 1
+  seed: 0
   gpu: 0
   ht: 4
   sibling: true
