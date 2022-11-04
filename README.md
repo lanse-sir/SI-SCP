@@ -20,3 +20,18 @@ You can download datasets from [here]. Decompress the data and place the data ac
   + str_data
     + paranmt
     + quaro
+
+# Citation
+```
+@inproceedings{yang-etal-2022-learning-structural,
+    title = "Learning Structural Information for Syntax-Controlled Paraphrase Generation",
+    author = "Yang, Erguang  and
+      Bai, Chenglin  and
+      Xiong, Deyi  and
+      Zhang, Yujie  and
+      Meng, Yao  and
+      Xu, Jinan  and
+      Chen, Yufeng",
+    booktitle = "Findings of the Association for Computational Linguistics: NAACL 2022",
+    year = "2022"}
+```
