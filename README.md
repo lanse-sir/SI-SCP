@@ -9,11 +9,13 @@ zss==1.2.0
 wandb==0.12.9
 ```
 ## Datasets
-You can download datasets from [here]. Decompress the data and place the data according to the following structure:
+You can download datasets from [here](https://drive.google.com/drive/folders/19Iytd_uSzBhDbekSYMzpd2i6O_tjv0dz?usp=sharing). Decompress the data and place the data according to the following structure:
 + SI-SCP
   + autocg
   + SISCP
   + retriever
+  + evaluation
+  + eval_tools
   + scp_data
     + paranmt
     + quaro
