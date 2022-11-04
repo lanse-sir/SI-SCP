@@ -22,6 +22,8 @@ You can download datasets from [here](https://drive.google.com/drive/folders/19I
   + str_data
     + paranmt
     + quaro
+## Training and Evaluation
+The source codes of syntactically controlled paraphrase generation model and syntax template retriever are located in SISCP and retriever directory, respectively.
 
 # Citation
 ```
