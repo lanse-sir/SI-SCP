@@ -2,4 +2,4 @@
 model=$1
 output=$2
 
-python -u predict.py --dev_src ../super-quora/bpe-8k/test/src.txt.bpe --dev_parse ../super-quora/bpe-8k/test/ref_parse.dict --dev_ref ../super-quora/bpe-8k/test/ref.txt --model_file $model --sent $output --pos_vocab ../super-quora/bpe-8k/resource/train.pos_vocab --beam_size 2
+python -u predict.py --dev_src ../scp_data/quaro/test/src.txt.bpe --dev_parse ../scp_data/quaro/test/ref_parse.dict --dev_ref ../scp_data/quaro/test/ref.txt --model_file $model --sent $output --pos_vocab ../scp_data/quaro/resource/train.pos_vocab --beam_size 2
