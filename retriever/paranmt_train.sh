@@ -1,0 +1,2 @@
+#!/bin/bash
+python -u retrieve_train.py --lr 0.1 --sent_enc_layers 4 --batch_size 512 --run_name 0 --embed_size 300 --d_model 300 --dk 75 --dv 75 --pretrain_emb ../str_data/glove.42B.300d.txt --model_file models/paranmt_retriever --train ../str_data/paranmt/train_parse-4.pkl --dev ../str_data/paranmt/dev_parse-4.pkl --vocab ../str_data/paranmt/train.word_vocab-4 --parse_vocab ../str_data/paranmt/train.parse_vocab
