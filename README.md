@@ -46,3 +46,4 @@ python -u evaluation/eval.py --input_file <generation_file> --ref_file <referenc
     booktitle = "Findings of the Association for Computational Linguistics: NAACL 2022",
     year = "2022"}
 ```
+Please kindly cite our paper if you find this paper and the codes useful!
