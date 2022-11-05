@@ -2,4 +2,4 @@
 
 ## Training
 
-## Generation
+## Inference
