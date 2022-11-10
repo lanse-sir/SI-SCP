@@ -5,7 +5,7 @@ sys.path.append("../../")
 
 import torch
 from synpg_transformer import synpg_transformer
-from train import auto_evaluate, load_vocab
+from train import diverse_generate, load_vocab
 from autocg.load_file import load_file_sent_or_parser
 from generator import Translator
 from data_init import trees_to_dict
@@ -43,7 +43,7 @@ parser.add_argument('--pos_vocab', type=str, default=None)
 parser.add_argument('--eval_bs', type=int, default=64)
 parser.add_argument('--ht', type=int, default=4)
 parser.add_argument('--greedy', type=bool, default=False)
-parser.add_argument('--beam_size', type=int, default=4)
+parser.add_argument('--beam_size', type=int, default=2)
 parser.add_argument('--gpu', type=int, default=0)
 parser.add_argument('--bpe', type=bool, default=True)
 parser.add_argument('--remove_pos', action='store_true')
@@ -60,7 +60,7 @@ print("Sentence Nums: ", len(sents))
 print("Template Nums: ", len(parses))
 
 
-pos_vocab = load_vocab(opt.pos_vocab)
+pos_vocab = None
 
 if len(parses) > len(sents):
     print("Using Retrieved Template ......")
@@ -81,6 +81,7 @@ if torch.cuda.is_available():
 
 translator = Translator(model=autocg_model, beam_size=opt.beam_size, max_seq_len=100)
 
-ori_bleu, ref_bleu = auto_evaluate(model=translator, test_data=inputs, word_vocab=params['word_vocab'],
-                                   parse_vocab=params['parse_vocab'],
-                                   pos_vocab=pos_vocab, opt=opt)
+print("Generating......")
+diverse_generate(model=translator, test_data=inputs, word_vocab=params['word_vocab'],
+                   parse_vocab=params['parse_vocab'],
+                   pos_vocab=pos_vocab, opt=opt)

@@ -14,7 +14,7 @@ import time
 
 st = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
 print("Current time: ", st)
-task_name = "Syntax-Controlled Paraphrasing"
+task_name = "QQP-POS Dataset"
 
 import numpy as np
 import torch
@@ -39,7 +39,7 @@ def parse_args():
         usage="train.py [<args>] [-h | --help]"
     )
     parser.add_argument('--run_name', type=str, help='name of the run.')
-    parser.add_argument('--model_config', type=str, help='models configs', default="bpe_15k_paranmt-50w.yaml")
+    parser.add_argument('--model_config', type=str, help='models configs', default="ctg_bpe_paranmt-50w_base.yaml")
     parser.add_argument('--wandb_every', type=int, default=10)
     parser.add_argument('--log_every', type=int, default=100)
     parser.add_argument('--dev_every', type=int, default=2000)
@@ -48,8 +48,8 @@ def parse_args():
     parser.add_argument('--model_file', type=str, default="cpg.bin")
     parser.add_argument('--pretrained', type=str, default=None)
     parser.add_argument('--debug', action='store_true')
-    parser.add_argument('--reload', type=str, default=None)
-    parser.add_argument('--sent', type=str, default=None)
+    parser.add_argument('--reload', type=str)
+    parser.add_argument('--sent', type=str)
     parser.add_argument('--beam_size', type=int, default=4)
     opt = parser.parse_args()
     main_args, model_args = None, None
@@ -210,15 +210,14 @@ def main(config_args):
     pos_vocab = load_vocab(opt.pos_vocab)
     print("Vocab Size :", len(vocab))
 
-    # parent_child = pickle.load(open(opt.parent_child, "rb"))
-    parent_child = None
+    parent_child = pickle.load(open(opt.parent_child, "rb"))
+
     # load pretrained word embedding.
-    # if os.path.exists(opt.pretrain_emb) and opt.debug is not True:
-        # word_embedding = load_embedding(opt.pretrain_emb, vocab)
-    # else:
-        # word_embedding = None
-    
-    word_embedding=None
+    if os.path.exists(opt.pretrain_emb) and opt.debug is not True:
+        word_embedding = load_embedding(opt.pretrain_emb, vocab)
+    else:
+        word_embedding = None
+
     if opt.pretrained is not None:
         print(f'Loading Pretrained Model {opt.pretrained}')
         params = torch.load(opt.pretrained, map_location=lambda storage, loc: storage)
@@ -366,11 +365,46 @@ def auto_evaluate(model, test_data, word_vocab, parse_vocab, pos_vocab, opt, par
 
     ori_bleu = -1.0
     ref_bleu = -1.0
+    
+
     if opt.dev_src != '':
         ori_bleu = run_multi_bleu(filename, opt.dev_src, MULTI_BLEU_PERL)
     if opt.dev_ref != '':
         ref_bleu = run_multi_bleu(filename, opt.dev_ref, MULTI_BLEU_PERL)
     return ori_bleu, ref_bleu
+
+def diverse_generate(model, test_data, word_vocab, parse_vocab, pos_vocab, opt, parent_child=None):
+    preds = []
+    batch_size = opt.eval_bs
+
+    attns = []
+    leaf_nodes = []
+    with torch.no_grad():
+        for i in tqdm(range(0, len(test_data), batch_size)):
+            batch = test_data[i:i + batch_size]
+            input_tensors = batch_tree_encoding(batch, word_vocab, parse_vocab, pos_vocab=pos_vocab, opt=opt,
+                                                parent_child=parent_child,
+                                                if_train=False)
+            if opt.greedy:
+                sent_results, syn_attns = model.greedy_decode(input_tensors, return_attns=opt.return_attn)
+                print(len(syn_attns))
+                attns += syn_attns
+                leaf_nodes += input_tensors["leaf"]
+            else:
+                sent_results, _ = model.translate_sentences(input_tensors)
+            preds += sent_results
+
+    filename = opt.sent
+    if opt.return_attn:
+        node_words = (preds, leaf_nodes, attns)
+        npy_file = filename + ".pkl"
+        print(f"Save leaf & attention weight to {npy_file}.")
+        with open(npy_file, "wb") as fw:
+            pickle.dump(node_words, fw)
+
+    print('Save generate sentence to {} .'.format(filename))
+    save_to_file(preds, filename)
+
 
 
 if __name__ == "__main__":
