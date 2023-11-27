@@ -207,7 +207,8 @@ def main(config_args):
     vocab = load_vocab(opt.vocab)
     parse_vocab = load_vocab(opt.parser_vocab)
 
-    pos_vocab = load_vocab(opt.pos_vocab)
+    # pos_vocab = load_vocab(opt.pos_vocab)
+    pos_vocab = None
     print("Vocab Size :", len(vocab))
 
     parent_child = pickle.load(open(opt.parent_child, "rb"))
