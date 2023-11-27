@@ -124,12 +124,13 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str)
+    parser.add_argument('--input', type=str) # input file
     parser.add_argument('--to_dict', action='store_true')
-    parser.add_argument('--output', type=str)
-    parser.add_argument('--pos', type=str)
-    parser.add_argument('--word', type=str)
+    parser.add_argument('--output', type=str) # output file path
+    parser.add_argument('--pos', type=str) # output file path
+    parser.add_argument('--word', type=str) # output file path
 
+    # setup the BPE.
     parser.add_argument('--bpe', action='store_true')
     parser.add_argument('--bpe_vocab_file', type=str, default=None)
     parser.add_argument('--bpe_code_file', type=str, default=None)
