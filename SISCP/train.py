@@ -211,8 +211,8 @@ def main(config_args):
     pos_vocab = None
     print("Vocab Size :", len(vocab))
 
-    parent_child = pickle.load(open(opt.parent_child, "rb"))
-
+    # parent_child = pickle.load(open(opt.parent_child, "rb"))
+    parent_child = None
     # load pretrained word embedding.
     if os.path.exists(opt.pretrain_emb) and opt.debug is not True:
         word_embedding = load_embedding(opt.pretrain_emb, vocab)
